@@ -36,6 +36,18 @@
         "url": "https://github.com/crypto-org-chain/gravity-bridge/archive/a09cf050d304156a7b6db5f95bcb31bad3681c33.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "ibc-rs": {
+        "branch": "master",
+        "description": "IBC modules and relayer - Formal specifications and Rust implementation",
+        "homepage": "",
+        "owner": "informalsystems",
+        "repo": "ibc-rs",
+        "rev": "v0.8.0",
+        "sha256": "0nmdglzd1n4agb282iqgxgmvfpr3ahwc91zainng5xg5pa72iw7p",
+        "type": "tarball",
+        "url": "https://github.com/informalsystems/ibc-rs/archive/v0.8.0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
