@@ -42,10 +42,10 @@
         "homepage": "",
         "owner": "informalsystems",
         "repo": "ibc-rs",
-        "rev": "v0.8.0",
-        "sha256": "0nmdglzd1n4agb282iqgxgmvfpr3ahwc91zainng5xg5pa72iw7p",
+        "rev": "c518e15a073a5187d64cd00d1a62b2c9360a9408",
+        "sha256": "1b3sa9slm6m8ilba9zs67v817m5niljdqxr9lzmfkk553vlr25rm",
         "type": "tarball",
-        "url": "https://github.com/informalsystems/ibc-rs/archive/v0.8.0.tar.gz",
+        "url": "https://github.com/informalsystems/ibc-rs/archive/c518e15a073a5187d64cd00d1a62b2c9360a9408.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
