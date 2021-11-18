@@ -12,8 +12,8 @@ pkgs.mkShell {
     pkgs.yarn
     pkgs.nodejs
     pkgs.git
-    pkgs.dapp
-    pkgs.solc-static-versions.solc_0_6_11
+    # pkgs.dapp
+    # pkgs.solc-static-versions.solc_0_6_11
     pkgs.test-env
     pkgs.nixpkgs-fmt
     (import ../nix/testenv.nix { inherit pkgs; })
