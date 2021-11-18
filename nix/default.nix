@@ -1,8 +1,15 @@
 { sources ? import ./sources.nix, system ? builtins.currentSystem, ... }:
 
-import sources.nixpkgs {
+let
+  dapptools = if system == "x86_64-darwin" then
+    (import (sources.dapptools + "/release.nix") { }).dapphub.darwin.stable
+  else
+    (import (sources.dapptools + "/release.nix") { }).dapphub.linux.stable;
+
+in import sources.nixpkgs {
   overlays = [
-    (import (sources.dapptools + "/overlay.nix"))
+    (_: pkgs: dapptools)
+    # (import (sources.dapptools + "/overlay.nix"))
     (import (sources.gomod2nix + "/overlay.nix"))
     # (import (sources.poetry2nix + "/overlay.nix"))
     (_: pkgs: {
