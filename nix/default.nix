@@ -12,7 +12,7 @@ in import sources.nixpkgs {
   overlays = [
     (_: pkgs: dapptools)
     (import (sources.gomod2nix + "/overlay.nix"))
-    # (import (sources.poetry2nix + "/overlay.nix"))
+    (import (sources.poetry2nix + "/overlay.nix"))
     (_: pkgs: {
       pystarport = pkgs.poetry2nix.mkPoetryApplication {
         projectDir = sources.pystarport;
