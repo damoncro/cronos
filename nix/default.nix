@@ -1,15 +1,16 @@
 { sources ? import ./sources.nix, system ? builtins.currentSystem, ... }:
 
 let
-  dapptools = if system == "x86_64-darwin" then
-    (import (sources.dapptools + "/release.nix") { }).dapphub.darwin.stable
-  else
-    (import (sources.dapptools + "/release.nix") { }).dapphub.linux.stable;
-
+  dapptools = {
+    x86_64-linux =
+      (import (sources.dapptools + "/release.nix") { }).dapphub.linux.stable;
+    x86_64-darwin =
+      (import (sources.dapptools + "/release.nix") { }).dapphub.darwin.stable;
+  }.${system} or (throw
+    "Unsupported system: ${system}");
 in import sources.nixpkgs {
   overlays = [
     (_: pkgs: dapptools)
-    # (import (sources.dapptools + "/overlay.nix"))
     (import (sources.gomod2nix + "/overlay.nix"))
     # (import (sources.poetry2nix + "/overlay.nix"))
     (_: pkgs: {
