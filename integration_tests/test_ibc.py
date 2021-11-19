@@ -24,20 +24,11 @@ def chainmain(tmp_path_factory):
 @pytest.fixture(scope="module")
 def hermes(tmp_path_factory):
     time.sleep(20)
-    yield from setup_hermes(tmp_path_factory.mktemp("hermes"), 26900)
+    yield from setup_hermes(tmp_path_factory.mktemp("hermes"))
 
 
 def get_balance(chain, addr, denom):
-    output = chain.cosmos_cli(0).raw(
-        "query",
-        "bank",
-        "balances",
-        addr,
-        node=chain.node_rpc(0),
-        output="json",
-    )
-    c = json.loads(output.decode())
-    coins = c["balances"]
+    coins = chain.cosmos_cli(0).balances(addr)
     for coin in coins:
         if coin["denom"] == denom:
             value = int(coin["amount"])
