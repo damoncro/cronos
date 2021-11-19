@@ -5,7 +5,7 @@ let
     x86_64-linux = {
       url =
         "https://github.com/informalsystems/ibc-rs/releases/download/${version}/hermes-${version}-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "sha256:1zjirchann6q1nszxkb09wrkf21di09qdni9q9v4mg75xxc9i7h3";
+      sha256 = "sha256-fhY+AKfT0UffIvpWOqLK80sQy+JV+QjP6Du6fdXCjd4=";
     };
     x86_64-darwin = {
       url =
