@@ -59,7 +59,7 @@ def test_ibc(cronos, chainmain, hermes):
     cmd = f"hermes -c {my_config} tx raw ft-transfer \
     {my_ibc1} {my_ibc0} transfer {my_channel} {src_amount} \
     -o 1000 -n 1 -d {src_denom} -r {coin_receiver} -k testkey"
-    os.popen(cmd)
+    _ = subprocess.getoutput(cmd)
     dstaddr = f"{coin_receiver}"
     olddstbalance = get_balance(cronos, dstaddr, dst_denom)
     time.sleep(5)
@@ -93,7 +93,7 @@ def test_ibc_reverse(cronos, chainmain, hermes):
     cmd = f"hermes -c {my_config} tx raw ft-transfer \
     {my_ibc0} {my_ibc1} transfer {my_channel} {src_amount} \
     -o 1000 -n 1 -d {src_denom} -r {coin_receiver} -k testkey"
-    os.popen(cmd)
+    _ = subprocess.getoutput(cmd)
     dstaddr = f"{coin_receiver}"
     olddstbalance = get_balance(chainmain, dstaddr, dst_denom)
     time.sleep(5)
