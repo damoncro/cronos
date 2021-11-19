@@ -1,18 +1,30 @@
-{sources ? import ./sources.nix, pkgs ? import ./default.nix { } }:
-pkgs.rustPlatform.buildRustPackage rec {
+{ pkgs ? import ./default.nix { } }:
+let
+  version = "v0.8.0";
+  srcUrl = {
+    x86_64-linux = {
+      url =
+        "https://github.com/informalsystems/ibc-rs/releases/download/${version}/hermes-${version}-x86_64-unknown-linux-gnu.tar.gz";
+      sha256 = "sha256:1zjirchann6q1nszxkb09wrkf21di09qdni9q9v4mg75xxc9i7h3";
+    };
+    x86_64-darwin = {
+      url =
+        "https://github.com/informalsystems/ibc-rs/releases/download/${version}/hermes-${version}-x86_64-apple-darwin.tar.gz";
+      sha256 = "sha256-dBAdPle81IBoOw5epr0NcPyIdYR/HNux1UKVYpAas2A=";
+    };
+  }.${pkgs.stdenv.system} or (throw
+    "Unsupported system: ${pkgs.stdenv.system}");
+in pkgs.stdenv.mkDerivation {
   name = "hermes";
-  src = sources.ibc-rs;
-  cargoSha256 = sha256:1sc4m4bshnjv021ic82c3m36pakf15xr5cw0dsrcjzs8pv3nq9cd;
-  cargoBuildFlags = "-p ibc-relayer-cli";
-  buildInputs = pkgs.lib.optionals pkgs.stdenv.isDarwin [
-    pkgs.darwin.apple_sdk.frameworks.Security
-    pkgs.darwin.libiconv
-  ];
-  doCheck = false;
-  RUSTFLAGS = "--cfg ossl111 --cfg ossl110 --cfg ossl101";
-  OPENSSL_NO_VENDOR = "1";
-  OPENSSL_DIR = pkgs.symlinkJoin {
-    name = "openssl";
-    paths = with pkgs.openssl; [ out dev ];
-  };
+  inherit version;
+  src = pkgs.fetchurl srcUrl;
+  sourceRoot = ".";
+  installPhase = ''
+    echo "hermes"
+    echo $out
+    install -m755 -D hermes $out/bin/hermes
+  '';
+
+  meta = with pkgs.lib; { platforms = with platforms; linux ++ darwin; };
+
 }
