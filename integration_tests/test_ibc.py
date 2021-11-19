@@ -1,11 +1,12 @@
 import json
-import os
 import time
 from pathlib import Path
 
 import pytest
 
 from .network import setup_chainmain, setup_cronos, setup_hermes
+import subprocess
+from .utils import wait_for_port
 
 
 @pytest.fixture(scope="module")
@@ -46,7 +47,13 @@ def get_balance(chain, addr, denom):
 
 def test_ibc(cronos, chainmain, hermes):
     # wait for hermes
-    time.sleep(20)
+    hermes_rest_port = 3000
+    wait_for_port(hermes_rest_port)
+    output = subprocess.getoutput(
+        f"curl -s -X GET 'http://127.0.0.1:{hermes_rest_port}/state' | jq"
+    )
+    assert json.loads(output)["status"] == "success"
+
     my_ibc0 = "chainmain-1"
     my_ibc1 = "cronos_777-1"
     my_channel = "channel-0"
@@ -71,6 +78,14 @@ def test_ibc(cronos, chainmain, hermes):
 
 
 def test_ibc_reverse(cronos, chainmain, hermes):
+    # wait for hermes
+    hermes_rest_port = 3000
+    wait_for_port(hermes_rest_port)
+    output = subprocess.getoutput(
+        f"curl -s -X GET 'http://127.0.0.1:{hermes_rest_port}/state' | jq"
+    )
+    assert json.loads(output)["status"] == "success"
+
     # wait for hermes
     my_ibc0 = "chainmain-1"
     my_ibc1 = "cronos_777-1"
