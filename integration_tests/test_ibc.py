@@ -125,7 +125,7 @@ belt veteran siren poem alcohol menu custom crunch index"
     bytecode = contract_json["bytecode"]
     abi = contract_json["abi"]
 
-    web3api.eth.defaultAccount = account
+    web3api.eth.default_account = account
     # deploy
     greeter_contract_class = web3api.eth.contract(abi=abi, bytecode=bytecode)
     nonce = web3api.eth.get_transaction_count(account.address)
