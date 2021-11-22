@@ -1,2 +1,5 @@
 #!/bin/sh
+which solc
+solc --version
+ls ~/.nix-profile/bin/
 make -C contracts test
