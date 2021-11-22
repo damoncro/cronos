@@ -1,6 +1,7 @@
 name: Build
 on:
   pull_request:
+  push:
     branches:
       - main
       - fix_hermes_error_with_action
